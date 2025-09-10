@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Classificação MC's</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 500px; }
+    label { display: block; margin-top: 10px; font-weight: bold; }
+    select, input, textarea { width: 100%; padding: 5px; margin-top: 5px; }
+    #resultado { margin-top: 20px; padding: 10px; background: #f5f5f5; border: 1px solid #ccc; white-space: pre-line; }
+  </style>
+</head>
+<body>
+  <h2>Classificação MC's</h2>
+
+  <!-- Cenário -->
+  <label for="cenario">Cenário:</label>
+  <select id="cenario">
+    <option value="">Selecione</option>
+    <option value="Produto errado">Produto errado</option>
+    <option value="Falta de produto">Falta de produto</option>
+    <option value="Falta de estoque - Pré faturamento">Falta de estoque - Pré faturamento</option>
+  </select>
+
+  <!-- Erro -->
+  <label for="erro">Erro:</label>
+  <select id="erro">
+    <option value="">Selecione o cenário primeiro</option>
+  </select>
+
+  <!-- Comercial -->
+  <div id="comercialDiv" style="display:none;">
+    <label for="comercial">Comercial:</label>
+    <select id="comercial">
+      <option value="">Selecione</option>
+      <option value="Representante">Representante</option>
+      <option value="Vendedor">Vendedor</option>
+    </select>
+  </div>
+
+  <!-- Valor de frete -->
+  <div id="freteDiv" style="display:none;">
+    <label for="frete">Valor de Frete (R$):</label>
+    <input type="number" id="frete" step="0.01" placeholder="Digite o valor do frete">
+  </div>
+
+  <!-- Observações -->
+  <label for="obs">Observações (opcional):</label>
+  <textarea id="obs" rows="4" placeholder="Digite suas observações (opcional)"></textarea>
+
+  <button id="btnGerar" onclick="gerarTexto()">Gerar Texto</button>
+
+  <div id="resultado"></div>
+
+  <script>
+    const errosPorCenario = {
+      'Produto errado': ['Cliente pediu errado', 'Comercial', 'Logística', 'Transportadora'],
+      'Falta de produto': ['2.a', '2.b', '2.c'],
+      'Falta de estoque - Pré faturamento': ['3.a', '3.b', '3.c']
+    };
+
+    // Popular erros conforme cenário
+    document.getElementById('cenario').addEventListener('change', function() {
+      const cenario = this.value;
+      const erroSelect = document.getElementById('erro');
+      erroSelect.innerHTML = '<option value="">Selecione</option>';
+      if (cenario && errosPorCenario[cenario]) {
+        errosPorCenario[cenario].forEach(erro => {
+          const opt = document.createElement('option');
+          opt.value = erro;
+          opt.textContent = erro;
+          erroSelect.appendChild(opt);
+        });
+      }
+      // Reset visibilidade
+      document.getElementById('comercialDiv').style.display = 'none';
+      document.getElementById('freteDiv').style.display = 'none';
+    });
+
+    // Mostrar campos extras
+    document.getElementById('erro').addEventListener('change', function() {
+      const erro = this.value;
+      // Exibe Comercial + Frete se erro for "Comercial" ou "2.a"
+      if (erro === 'Comercial') {
+        document.getElementById('comercialDiv').style.display = 'block';
+        document.getElementById('freteDiv').style.display = 'block';
+      } else {
+        document.getElementById('comercialDiv').style.display = 'none';
+        document.getElementById('freteDiv').style.display = 'none';
+      }
+    });
+
+    // Ao apertar Enter no campo Observações, chamar gerarTexto
+    document.getElementById('obs').addEventListener('keydown', function(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        gerarTexto();
+      }
+    });
+
+    function gerarTexto() {
+      const cenario = document.getElementById('cenario').value.trim();
+      const erro = document.getElementById('erro').value.trim();
+      const comercialVisible = document.getElementById('comercialDiv').style.display !== 'none';
+      const freteVisible = document.getElementById('freteDiv').style.display !== 'none';
+      const comercial = document.getElementById('comercial').value.trim();
+      const frete = document.getElementById('frete').value.trim();
+      const obs = document.getElementById('obs').value.trim(); // opcional
+
+      // Validação obrigatória dos campos visíveis (exceto Observações)
+      if (!cenario) { alert('Selecione um Cenário.'); return; }
+      if (!erro) { alert('Selecione um Erro.'); return; }
+      if (comercialVisible && !comercial) { alert('Selecione o Comercial.'); return; }
+      if (freteVisible && !frete) { alert('Informe o Valor de Frete.'); return; }
+
+      // Montar texto
+      let texto = `Cenário: ${cenario}\nErro: ${erro}`;
+      if (comercialVisible) {
+        texto += `\nComercial: ${comercial}`;
+      }
+      if (freteVisible) {
+        texto += `\nValor de Frete: R$ ${frete}`;
+      }
+      if (obs) {
+        texto += `\nObservações: ${obs}`;
+      }
+
+      document.getElementById('resultado').innerText = texto;
+    }
+  </script>
+</body>
+</html>
+
