@@ -29,14 +29,10 @@
     <option value="">Selecione o cenário primeiro</option>
   </select>
 
-  <!-- Comercial -->
-  <div id="comercialDiv" style="display:none;">
-    <label for="comercial">Comercial:</label>
-    <select id="comercial">
-      <option value="">Selecione</option>
-      <option value="Representante">Representante</option>
-      <option value="Vendedor">Vendedor</option>
-    </select>
+  <!-- Representante/Vendedor -->
+  <div id="repOUvendDiv" style="display:none;">
+    <label for="repOUvend">Representante/Vendedor:</label>
+    <textarea id="repOUvend" rows="1" placeholder="Digite o código do representante ou vendedor"></textarea>
   </div>
 
   <!-- Valor de frete -->
@@ -84,10 +80,10 @@
       const erro = this.value;
       // Exibe Comercial + Frete se erro for "Comercial" ou "2.a"
       if (erro === 'Comercial') {
-        document.getElementById('comercialDiv').style.display = 'block';
+        document.getElementById('repOUvendDiv').style.display = 'block';
         document.getElementById('freteDiv').style.display = 'block';
       } else {
-        document.getElementById('comercialDiv').style.display = 'none';
+        document.getElementById('repOUvendDiv').style.display = 'none';
         document.getElementById('freteDiv').style.display = 'none';
       }
     });
