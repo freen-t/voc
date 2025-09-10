@@ -99,22 +99,22 @@
     function gerarTexto() {
       const cenario = document.getElementById('cenario').value.trim();
       const erro = document.getElementById('erro').value.trim();
-      const comercialVisible = document.getElementById('comercialDiv').style.display !== 'none';
+      const repOUvendVisible = document.getElementById('repOUvendDiv').style.display !== 'none';
       const freteVisible = document.getElementById('freteDiv').style.display !== 'none';
-      const comercial = document.getElementById('comercial').value.trim();
+      const repOUvend = document.getElementById('repOUvend').value.trim();
       const frete = document.getElementById('frete').value.trim();
       const obs = document.getElementById('obs').value.trim(); // opcional
 
       // Validação obrigatória dos campos visíveis (exceto Observações)
       if (!cenario) { alert('Selecione um Cenário.'); return; }
       if (!erro) { alert('Selecione um Erro.'); return; }
-      if (comercialVisible && !comercial) { alert('Selecione o Comercial.'); return; }
+      if (repOUvendVisible && !repOUvend) { alert('Informe o representante/vendedor.'); return; }
       if (freteVisible && !frete) { alert('Informe o Valor de Frete.'); return; }
 
       // Montar texto
       let texto = `Motivo: ${cenario}\nCausa: ${erro}`;
-      if (comercialVisible) {
-        texto += `\nComercial: ${comercial}`;
+      if (repOUvendVisible) {
+        texto += `\nRepresentante/vendedor: ${repOUvend}`;
       }
       if (freteVisible) {
         texto += `\nValor de Frete: R$${frete}`;
@@ -128,3 +128,4 @@
   </script>
 </body>
 </html>
+
