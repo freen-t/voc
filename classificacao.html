@@ -41,6 +41,19 @@
     <input type="number" id="frete" step="0.01" placeholder="Digite o valor do frete">
   </div>
 
+  <!-- Tipo de solução -->
+  <label for="cenario">Tipo de solução:</label>
+  <select id="solucao">
+    <option value="">Selecione</option>
+    <option value="Devolução total">Devolução total</option>
+    <option value="Devolução parcial">Devolução parcial</option>
+    <option value="Devolução simbólica">Devolução simbólica</option>
+    <option value="NF Writer">NF Writer</option>
+    <option value="Concessão de crédito">Concessão de crédito</option>
+    <option value="Prorrogação de título">Prorrogação de título</option>
+    <option value="Sem fluxo financeiro">Sem fluxo financeiro</option>
+  </select>
+
   <!-- Observações -->
   <label for="obs">Observações (opcional):</label>
   <textarea id="obs" rows="4" placeholder="Digite suas observações (opcional)"></textarea>
@@ -103,6 +116,7 @@
       const freteVisible = document.getElementById('freteDiv').style.display !== 'none';
       const repOUvend = document.getElementById('repOUvend').value.trim();
       const frete = document.getElementById('frete').value.trim();
+      const solucao = document.getElementById('solucao').value.trim();
       const obs = document.getElementById('obs').value.trim(); // opcional
 
       // Validação obrigatória dos campos visíveis (exceto Observações)
@@ -110,6 +124,7 @@
       if (!erro) { alert('Selecione um Erro.'); return; }
       if (repOUvendVisible && !repOUvend) { alert('Informe o representante/vendedor.'); return; }
       if (freteVisible && !frete) { alert('Informe o Valor de Frete.'); return; }
+      if (!solucao) { alert('Selecione uma Solução.'); return; }
 
       // Montar texto
       let texto = `Motivo: ${cenario}`;
@@ -124,6 +139,7 @@
       if (freteVisible) {
         texto += `\nValor do frete: R$${frete}`;
       }
+      texto += `\nTipo de solução: ${solucao}`;
       if (obs) {
         texto += `\nObservações: ${obs}`;
       }
@@ -133,6 +149,7 @@
   </script>
 </body>
 </html>
+
 
 
 
