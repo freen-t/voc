@@ -35,9 +35,9 @@
     <textarea id="repOUvend" rows="1" placeholder="Digite o código do representante ou vendedor"></textarea>
   </div>
 
-  <!-- Valor de frete -->
+  <!-- Valor do frete -->
   <div id="freteDiv" style="display:none;">
-    <label for="frete">Valor de Frete (R$):</label>
+    <label for="frete">Valor do frete (R$):</label>
     <input type="number" id="frete" step="0.01" placeholder="Digite o valor do frete">
   </div>
 
@@ -122,7 +122,7 @@
         texto += `\nRepresentante/vendedor: ${repOUvend}`;
       }
       if (freteVisible) {
-        texto += `\nValor de Frete: R$${frete}`;
+        texto += `\nValor do frete: R$${frete}`;
       }
       if (obs) {
         texto += `\nObservações: ${obs}`;
@@ -133,6 +133,7 @@
   </script>
 </body>
 </html>
+
 
 
 
