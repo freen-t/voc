@@ -73,10 +73,12 @@
   <label for="obs">Observações (opcional):</label>
   <textarea id="obs" rows="4" placeholder="Digite suas observações (opcional)"></textarea>
 
+  <!-- Botão gerar texto -->
   <button id="btnGerar" onclick="gerarTexto()">Gerar texto</button>
-
   <div id="resultado"></div>
-  <button onclick="copiarTexto()">Copiar resultado</button>
+
+  <!-- Botão copiar texto -->
+  <button id="btnCopiar" onclick="copiarTexto()">Copiar resultado</button>
 
   <!-- Erros por cenários -->
   <script>
@@ -173,22 +175,18 @@
     }
 
     function copiarTexto() {
-      // Seleciona o input
-      const texto = document.getElementById("resultado");
-    
-      // Seleciona o conteúdo do input
-      texto.select();
-      texto.setSelectionRange(0, 99999); // Para dispositivos móveis
-    
-      // Copia para a área de transferência
-      document.execCommand("copy");
-    
-      // Feedback visual (opcional)
-      alert("Texto copiado: " + texto.value);
+      const texto = document.getElementById("resultado").value;
+
+      navigator.clipboard.writeText(texto).then(() => {
+        alert("Texto copiado");
+      }).catch(err => {
+        console.error("Erro ao copiar texto:", err);
+      });
     }
   </script>
 </body>
 </html>
+
 
 
 
