@@ -47,13 +47,12 @@
   </div>-->
 
   <div id="noPrazoDiv" style="display:none;">
-    <label>Cliente se manifestou no prazo:</label><br>
-    <label>
-      <input type="radio" name="noPrazo" value="true"> Sim
-    </label>
-  
-    <label>
-      <input type="radio" name="noPrazo" value="false"> Não
+    <label for="cenario">Cliente se manifestou no prazo::</label>
+      <select id="noPrazo">
+        <option value="">Selecione</option>
+        <option value="Sim">Sim</option>
+        <option value="Não">Não</option>
+      </select>
     </label>
   </div>
 
@@ -137,7 +136,8 @@
       const freteVisible = document.getElementById('freteDiv').style.display !== 'none';
       const repOUvend = document.getElementById('repOUvend').value.trim();
       const frete = document.getElementById('frete').value.trim();
-      const noPrazo = document.querySelector('input[name="noPrazo"]:checked');
+      const noPrazo = document.getElementById('noPrazo').value.trim();
+      const noPrazoVisible = document.getElementById('noPrazoDiv').style.display !== 'none';
       const solucao = document.getElementById('solucao').value.trim();
       const obs = document.getElementById('obs').value.trim(); // opcional
 
@@ -146,6 +146,7 @@
       if (!erro) { alert('Selecione um Erro.'); return; }
       if (repOUvendVisible && !repOUvend) { alert('Informe o representante/vendedor.'); return; }
       if (freteVisible && !frete) { alert('Informe o Valor de Frete.'); return; }
+      if (noPrazoVisible && !noPrazo) { alert('Informe se cliente se manifestou no prazo.'); return; }
       if (!solucao) { alert('Selecione uma Solução.'); return; }
 
       // Montar texto
@@ -161,14 +162,13 @@
       if (freteVisible) {
         texto += `\nValor do frete: R$${frete}`;
       }
-      if (noPrazo) {
+      if (noPrazoVisible) {
         texto += `\nCliente se manifestou no prazo: ${noPrazo}`;
       }
       texto += `\nTipo de solução: ${solucao}`;
       if (obs) {
         texto += `\nObservações: ${obs}`;
       }
-
       document.getElementById('resultado').innerText = texto;
     }
 
@@ -189,6 +189,7 @@
   </script>
 </body>
 </html>
+
 
 
 
