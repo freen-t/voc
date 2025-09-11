@@ -42,13 +42,22 @@
   </div>
 
   <!-- Cliente se manifestou dentro do prazo -->
-  <div id="noPrazoDiv" style="display:none;">
+  <!--<div id="noPrazoDiv" style="display:none;">
     <label for="noPrazo">Cliente se manifestou no prazo:</label>
-    <textarea id="noPrazo" rows="1" placeholder="Digite o código do representante ou vendedor"></textarea>
+  </div>-->
+
+  <div id="noPrazoDiv" style="display:none;">
+    <label>Cliente se manifestou no prazo:</label><br>
+  
+    <input type="radio" id="noPrazoSim" name="noPrazo" value=true>
+    <label for="noPrazoSim">Sim</label>
+  
+    <input type="radio" id="noPrazoNao" name="noPrazo" value=false>
+    <label for="noPrazoNao">Não</label>
   </div>
 
   <!-- Tipo de solução -->
-  <label for="cenario">Tipo de solução:</label>
+  <label for="solucao">Tipo de solução:</label>
   <select id="solucao">
     <option value="">Selecione</option>
     <option value="Devolução total">Devolução total</option>
@@ -97,13 +106,17 @@
     // Mostrar campos extras
     document.getElementById('erro').addEventListener('change', function() {
       const erro = this.value;
-      // Exibe Comercial + Frete se erro for "Comercial" ou "2.a"
+      // Exibe Comercial + Frete se erro for "Comercial"
       if (erro === 'Comercial') {
         document.getElementById('repOUvendDiv').style.display = 'block';
         document.getElementById('freteDiv').style.display = 'block';
-      } else {
+      } else if (erro === 'Cliente pediu errado') {
+        document.getElementById('noPrazoDiv').style.display = 'block';
+      }
+      else {
         document.getElementById('repOUvendDiv').style.display = 'none';
         document.getElementById('freteDiv').style.display = 'none';
+        document.getElementById('noPrazoDiv').style.display = 'none';
       }
     });
 
@@ -122,6 +135,7 @@
       const freteVisible = document.getElementById('freteDiv').style.display !== 'none';
       const repOUvend = document.getElementById('repOUvend').value.trim();
       const frete = document.getElementById('frete').value.trim();
+      const noPrazo = document.querySelector('input[name="noPrazo"]:checked');
       const solucao = document.getElementById('solucao').value.trim();
       const obs = document.getElementById('obs').value.trim(); // opcional
 
@@ -145,6 +159,9 @@
       if (freteVisible) {
         texto += `\nValor do frete: R$${frete}`;
       }
+      if (noPrazo) {
+        txto += `\nCliente se manifestou no prazo: ${noPrazo}`;
+      }
       texto += `\nTipo de solução: ${solucao}`;
       if (obs) {
         texto += `\nObservações: ${obs}`;
@@ -155,6 +172,7 @@
   </script>
 </body>
 </html>
+
 
 
 
