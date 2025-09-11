@@ -42,10 +42,6 @@
   </div>
 
   <!-- Cliente se manifestou dentro do prazo -->
-  <!--<div id="noPrazoDiv" style="display:none;">
-    <label for="noPrazo">Cliente se manifestou no prazo:</label>
-  </div>-->
-
   <div id="noPrazoDiv" style="display:none;">
     <label for="cenario">Cliente se manifestou no prazo::</label>
       <select id="noPrazo">
@@ -102,8 +98,9 @@
         });
       }
       // Reset visibilidade
-      document.getElementById('comercialDiv').style.display = 'none';
+      document.getElementById('repOUvendDiv').style.display = 'none';
       document.getElementById('freteDiv').style.display = 'none';
+      document.getElementById('noPrazoDiv').style.display = 'none';
     });
 
     // Mostrar campos extras
@@ -186,6 +183,7 @@
   </script>
 </body>
 </html>
+
 
 
 
