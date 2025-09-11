@@ -175,7 +175,7 @@
     }
 
     function copiarTexto() {
-      const texto = document.getElementById("resultado").value;
+      const texto = document.getElementById("resultado").innerText;
 
       navigator.clipboard.writeText(texto).then(() => {
         alert("Texto copiado");
@@ -186,6 +186,7 @@
   </script>
 </body>
 </html>
+
 
 
 
